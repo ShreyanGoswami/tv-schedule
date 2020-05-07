@@ -1,16 +1,17 @@
 import { Controller, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
-import { SearchService } from './search.service';
+import { QueryConstants } from 'src/common/constants';
+import { SearchService } from 'src/common/service';
 
 @Controller()
 export class SearchController {
-    SHOW_SEARCH_QUERY_NAME : string = 'name'
+    
     constructor(private readonly searchService: SearchService) {}
 
     @Get('show')
     getShow(@Query() query) : Promise<string> {
         console.log('Received request to search for show ', query)
-        if(query.hasOwnProperty(this.SHOW_SEARCH_QUERY_NAME)) {
-            return this.searchService.search(query[this.SHOW_SEARCH_QUERY_NAME])
+        if (query.hasOwnProperty(QueryConstants.SHOW_SEARCH_QUERY_NAME) && Object.keys(query).length == 1) {
+            return this.searchService.search(query[QueryConstants.SHOW_SEARCH_QUERY_NAME])
                 .then((data) => { 
                     return data 
                 })
