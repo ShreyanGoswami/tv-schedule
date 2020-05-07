@@ -1,13 +1,13 @@
 import { Controller, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
 import { SearchService } from './search.service';
 
-@Controller('search')
+@Controller()
 export class SearchController {
-    SHOW_SEARCH_QUERY_NAME : string = 'show'
+    SHOW_SEARCH_QUERY_NAME : string = 'name'
     constructor(private readonly searchService: SearchService) {}
 
     @Get('show')
-    getSearch(@Query() query) : Promise<string> {
+    getShow(@Query() query) : Promise<string> {
         console.log('Received request to search for show ', query)
         if(query.hasOwnProperty(this.SHOW_SEARCH_QUERY_NAME)) {
             return this.searchService.search(query[this.SHOW_SEARCH_QUERY_NAME])
