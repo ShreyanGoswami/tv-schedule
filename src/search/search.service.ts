@@ -9,10 +9,10 @@ export class SearchService {
         this.baseUrl = 'https://api.tvmaze.com/search/shows?q=' // TODO move to config file
     }
 
-    async search(query: string) {
+    search(query: string) {
         const url = this.baseUrl + query
         console.log('Calling API: ', url)
-        const responseBody = await this.client.get(url)
+        const responseBody = this.client.get(url)
         .then((response) => {return response.data})
         .catch((error) => console.log(error))
         return responseBody
